@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Shutterhouse | Cameras, lenses and lighting</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+:root{
+  --paper:#EDEFEC; --panel:#FAFBF9; --ink:#15252B; --muted:#56666B; --line:#CBD2CF;
+  --accent:#F2B22A; --accent-ink:#15252B; --teal:#1F5560; --danger:#B3342B; --ok:#1F7A4D; --tmix:100%;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){--paper:#0F1A1E;--panel:#16252A;--ink:#E7EDEA;--muted:#9AABAF;--line:#2B3D43;--teal:#7CC4D1;--danger:#F08A80;--ok:#6FD3A0;--tmix:22%}
+}
+:root[data-theme="dark"]{--paper:#0F1A1E;--panel:#16252A;--ink:#E7EDEA;--muted:#9AABAF;--line:#2B3D43;--teal:#7CC4D1;--danger:#F08A80;--ok:#6FD3A0;--tmix:22%}
+*,*::before,*::after{box-sizing:inherit}
+html{height:100%;scroll-padding-top:calc(env(safe-area-inset-top,0px) + 80px)}
+body{margin:0;min-height:100%;background:var(--paper);color:var(--ink);font:16px/1.55 'IBM Plex Sans',system-ui,-apple-system,'Segoe UI',sans-serif;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:'Bricolage Grotesque','IBM Plex Sans',system-ui,sans-serif;font-weight:700;line-height:1.1;margin:0;letter-spacing:-.01em}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer}
+a{color:var(--teal)}
+:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:2px solid var(--ink);background:var(--ink);color:var(--paper);padding:10px 18px;border-radius:8px;font-weight:600;text-decoration:none;min-height:44px}
+.btn:hover{opacity:.9}
+.btn.accent{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn.sm{min-height:36px;padding:6px 12px;font-size:.9rem}
+.btn[disabled]{opacity:.55;cursor:not-allowed}
+.link{background:none;border:0;padding:0;color:var(--teal);text-decoration:underline;font-weight:500}
+
+/* header */
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--paper);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;gap:16px;padding:12px 0;flex-wrap:wrap}
+.logo{display:flex;align-items:center;gap:10px;font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:1.35rem;color:var(--ink);text-decoration:none;letter-spacing:-.02em}
+.search{flex:1 1 280px;position:relative;order:2}
+.search input{width:100%;height:44px;border:1.5px solid var(--line);background:var(--panel);border-radius:8px;padding:0 14px}
+.icons{display:flex;gap:6px;margin-left:auto}
+.ibtn{position:relative;display:inline-flex;align-items:center;gap:6px;height:44px;padding:0 12px;background:transparent;border:1.5px solid transparent;border-radius:8px;font-weight:500}
+.ibtn:hover{border-color:var(--line)}
+.count{min-width:20px;height:20px;padding:0 6px;border-radius:10px;background:var(--accent);color:var(--accent-ink);font-size:.78rem;font-weight:600;display:inline-grid;place-items:center}
+@media(min-width:900px){.search{order:0}}
+
+/* hero */
+.hero{border-bottom:1px solid var(--line);position:relative}
+.hero .wrap{display:grid;gap:32px;padding-top:48px;padding-bottom:56px;align-items:center}
+@media(min-width:880px){.hero .wrap{grid-template-columns:1.15fr .85fr}}
+.hero h1{font-size:clamp(2.4rem,6vw,4.4rem)}
+.hero p{max-width:46ch;color:var(--muted);font-size:1.08rem;margin:18px 0 26px}
+.hero .cta{display:flex;gap:12px;flex-wrap:wrap}
+.iris{justify-self:center;text-align:center}
+.iris button{background:none;border:0;padding:0;border-radius:50%}
+.iris svg{width:min(320px,70vw);height:auto;display:block}
+.iris small{display:block;color:var(--muted);margin-top:10px}
+.iris strong{font-family:'Bricolage Grotesque',sans-serif;font-size:1.5rem}
+.film{height:22px;background:var(--ink);position:relative}
+.film::before{content:"";position:absolute;inset:6px 0;background:repeating-linear-gradient(90deg,var(--paper) 0 12px,transparent 12px 26px);border-radius:2px}
+.promises{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));padding:22px 0;color:var(--muted);font-size:.95rem}
+.promises b{color:var(--ink);display:block;font-weight:600}
+
+/* filters */
+.filters{padding:28px 0 8px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.chip{border:1.5px solid var(--line);background:transparent;border-radius:999px;padding:7px 15px;font-weight:500;min-height:38px}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.sel{height:42px;border:1.5px solid var(--line);background:var(--panel);border-radius:8px;padding:0 10px}
+.results{margin-left:auto;color:var(--muted)}
+
+/* grid */
+.grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));padding:16px 0 56px}
+.card{background:var(--panel);border:1.5px solid var(--line);border-radius:10px;display:flex;flex-direction:column;overflow:hidden;position:relative}
+.card:hover{border-color:var(--ink)}
+.thumb{background:color-mix(in srgb,var(--t) var(--tmix),var(--panel));aspect-ratio:4/3;display:grid;place-items:center;border:0;width:100%;padding:0;border-bottom:1.5px solid var(--line)}
+.thumb svg{width:56%;height:auto;color:var(--ink);fill:none;stroke:currentColor;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.tag{position:absolute;top:10px;left:10px;background:var(--accent);color:var(--accent-ink);font-weight:600;font-size:.82rem;padding:2px 9px;border-radius:6px}
+.heart{position:absolute;top:6px;right:6px;width:40px;height:40px;border-radius:50%;border:0;background:color-mix(in srgb,var(--panel) 85%,transparent);display:grid;place-items:center}
+.heart svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2}
+.heart[aria-pressed="true"] svg{fill:var(--danger);stroke:var(--danger)}
+.cbody{padding:14px 16px 16px;display:flex;flex-direction:column;gap:6px;flex:1}
+.brand{color:var(--muted);font-size:.88rem}
+.name{font:600 1.02rem/1.3 'IBM Plex Sans',sans-serif;background:none;border:0;padding:0;text-align:left}
+.name:hover{text-decoration:underline}
+.stars{font-size:.88rem;color:var(--muted)}
+.stars b{color:var(--ink)}
+.price{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap;margin-top:auto;padding-top:6px}
+.price strong{font-size:1.2rem;font-weight:600}
+.price s{color:var(--muted);font-size:.9rem}
+.low{color:var(--danger);font-size:.85rem;font-weight:500}
+.empty{padding:56px 0;text-align:center;color:var(--muted)}
+.empty h3{color:var(--ink);margin-bottom:8px}
+
+/* dialogs */
+dialog{border:1.5px solid var(--line);background:var(--panel);color:var(--ink);padding:0;border-radius:12px;max-width:min(960px,calc(100vw - 24px));width:100%}
+dialog::backdrop{background:rgba(10,20,24,.55)}
+.dhead{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-bottom:1px solid var(--line)}
+.x{width:40px;height:40px;border-radius:8px;border:0;background:transparent;font-size:1.4rem;line-height:1}
+.pm{display:grid;gap:0}
+@media(min-width:760px){.pm{grid-template-columns:1fr 1fr}}
+.pm .thumb{aspect-ratio:auto;min-height:260px;border-bottom:0;border-right:0}
+.pinfo{padding:22px;display:flex;flex-direction:column;gap:12px}
+.pinfo h2{font-size:1.7rem}
+.big{font-size:1.7rem;font-weight:600}
+.specs{width:100%;border-collapse:collapse;font-size:.95rem}
+.specs th,.specs td{text-align:left;padding:7px 0;border-bottom:1px solid var(--line);vertical-align:top}
+.specs th{color:var(--muted);font-weight:400;width:40%}
+.qty{display:inline-flex;align-items:center;border:1.5px solid var(--line);border-radius:8px}
+.qty button{width:38px;height:38px;border:0;background:transparent;font-size:1.2rem}
+.qty span{min-width:30px;text-align:center;font-weight:600}
+.drawer{margin:0 0 0 auto;height:100%;max-height:100%;max-width:440px;border-radius:0;border-width:0 0 0 1.5px;display:none;flex-direction:column}
+.drawer[open]{display:flex}
+.drawer .list{flex:1;overflow:auto;padding:6px 18px}
+.drawer .foot{border-top:1px solid var(--line);padding:16px 18px calc(16px + env(safe-area-inset-bottom,0px))}
+.line{display:grid;grid-template-columns:72px 1fr auto;gap:12px;padding:14px 0;border-bottom:1px solid var(--line);align-items:start}
+.line .thumb{aspect-ratio:1;border:1px solid var(--line);border-radius:8px}
+.line .thumb svg{width:70%}
+.tot{display:flex;justify-content:space-between;padding:3px 0}
+.tot.grand{font-weight:600;font-size:1.15rem;border-top:1px solid var(--line);margin-top:6px;padding-top:10px}
+.muted{color:var(--muted)}
+.ok{color:var(--ok)}.bad{color:var(--danger)}
+
+/* forms */
+.panel{background:var(--panel);border:1.5px solid var(--line);border-radius:10px;padding:22px;margin-bottom:18px}
+.co-grid{display:grid;gap:20px;padding:32px 0 56px}
+@media(min-width:900px){.co-grid{grid-template-columns:1.4fr 1fr;align-items:start}#co-summary{position:sticky;top:96px}}
+.fields{display:grid;gap:14px;grid-template-columns:repeat(2,1fr);margin:16px 0}
+.fields .full{grid-column:1/-1}
+@media(max-width:560px){.fields{grid-template-columns:1fr}}
+label.f{display:flex;flex-direction:column;gap:5px;font-weight:500;font-size:.93rem}
+label.f input,label.f select{height:46px;border:1.5px solid var(--line);background:var(--paper);border-radius:8px;padding:0 12px;font-weight:400}
+label.f input[aria-invalid="true"],label.f select[aria-invalid="true"]{border-color:var(--danger)}
+.err{color:var(--danger);font-size:.85rem;font-weight:400;min-height:0}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+.tab{border:1.5px solid var(--line);background:transparent;border-radius:8px;padding:9px 16px;font-weight:600;min-height:44px}
+.tab[aria-selected="true"]{border-color:var(--ink);background:var(--ink);color:var(--paper)}
+.note{border-left:4px solid var(--accent);background:color-mix(in srgb,var(--accent) 14%,var(--panel));padding:10px 14px;border-radius:0 8px 8px 0;font-size:.92rem;margin:0 0 14px}
+.qrbox{display:grid;place-items:center;gap:10px;padding:16px;border:1.5px dashed var(--line);border-radius:10px;margin:12px 0}
+.qrbox #qr{background:#fff;padding:12px;border-radius:8px;min-height:184px;min-width:184px}
+.seg{display:inline-flex;border:1.5px solid var(--line);border-radius:8px;overflow:hidden}
+.seg button{border:0;background:transparent;padding:8px 14px;font-weight:500;min-height:40px}
+.seg button[aria-pressed="true"]{background:var(--teal);color:#fff}
+:root[data-theme="dark"] .seg button[aria-pressed="true"]{color:#0F1A1E}
+.spin{width:18px;height:18px;border:3px solid currentColor;border-right-color:transparent;border-radius:50%;animation:sp .8s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+.cardbrand{font-size:.85rem;color:var(--muted);font-weight:500}
+.done{max-width:640px;margin:0 auto;padding:56px 0}
+.done h1{font-size:2.4rem;margin-bottom:10px}
+.order{border:1.5px solid var(--line);background:var(--panel);border-radius:10px;padding:18px;margin-bottom:14px}
+.order header{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:8px}
+.pill{display:inline-block;padding:2px 10px;border-radius:999px;background:color-mix(in srgb,var(--ok) 18%,transparent);color:var(--ok);font-weight:600;font-size:.82rem}
+h2.page{font-size:2rem;padding:32px 0 8px}
+
+footer{border-top:1px solid var(--line);padding:34px 0 40px;color:var(--muted);font-size:.93rem}
+footer .wrap{display:grid;gap:22px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+footer b{color:var(--ink);display:block;margin-bottom:4px}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translate(-50%,24px);background:var(--ink);color:var(--paper);padding:11px 18px;border-radius:8px;opacity:0;pointer-events:none;transition:.25s;z-index:100;max-width:90vw}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+@media print{header.top,footer,.no-print,.hero{display:none!important}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header class="top no-print">
+  <div class="wrap bar">
+    <a class="logo" href="#/" aria-label="Shutterhouse home">
+      <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><circle cx="15" cy="15" r="13" fill="var(--ink)"/><polygon points="15,8 20.7,11 21.2,17.5 15.8,21.5 9.7,18.5 9.3,12" fill="var(--accent)"/></svg>
+      Shutterhouse
+    </a>
+    <div class="search"><label class="sr" for="q">Search gear</label><input id="q" type="search" placeholder="Search cameras, lenses, lights" autocomplete="off"></div>
+    <nav class="icons" aria-label="Account">
+      <button class="ibtn" data-act="saved" aria-pressed="false">Saved <span class="count" id="wc">0</span></button>
+      <a class="ibtn" href="#/orders" style="text-decoration:none;color:inherit">Orders</a>
+      <button class="ibtn" data-act="cart">Cart <span class="count" id="cc">0</span></button>
+    </nav>
+  </div>
+</header>
+
+<main id="main"></main>
+
+<footer class="no-print">
+  <div class="wrap">
+    <div><b>Shutterhouse</b>Camera gear for people who shoot often. Every product is brand-new and sealed.</div>
+    <div><b>Shipping</b>Free over ₹2,000. Otherwise ₹5. Most orders arrive in 2 to 5 days.</div>
+    <div><b>Returns and warranty</b>7-day returns on unused gear. Brand warranty on every product, with a GST invoice.</div>
+    <div><b>Payments</b>UPI, QR code, credit and debit cards, and cash on delivery.</div>
+  </div>
+</footer>
+
+<dialog id="pdlg" aria-label="Product details"></dialog>
+<dialog id="cart" class="drawer" aria-label="Your cart"></dialog>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* ============ CONFIG ============ */
+const CONFIG = {
+  MODE: 'live',                        // 'live' = real UPI backend. card/COD remain demo.
+  API_BASE: 'http://localhost:3001',   // your backend (server.js)
+  UPI_VPA: 'yashpatil0315-1@okhdfcbank', // your real UPI ID
+  UPI_NAME: 'Shutterhouse'
+};
+const CATALOG = [{"id":"test1","name":"Test Item (₹1 Demo)","brand":"Demo","cat":"Accessories","price":1,"mrp":2,"rating":5.0,"reviews":1,"stock":100,"icon":"filter","tint":"#D9E6DA","featured":1,"desc":"A ₹1 test product to verify the UPI payment flow end-to-end. Add this to cart and complete the checkout to test your QR.","specs":{"Purpose":"Payment testing","Price":"₹1","Stock":"100 units","Note":"Use this to test UPI QR payment"}},{"id":"k7","name":"Kestrel K7 Full-Frame Mirrorless Body","brand":"Kestrel","cat":"Cameras","price":89990,"mrp":99990,"rating":4.7,"reviews":412,"stock":6,"icon":"camera","tint":"#DCE5E2","featured":1,"desc":"A 33MP full-frame body with fast autofocus that tracks eyes on people, animals and birds. Built for weddings, wildlife and everything between.","specs":{"Sensor":"33MP full-frame BSI CMOS","Video":"4K 60p, 10-bit","Stabilisation":"5-axis, up to 7 stops","Weight":"658 g with battery"}},{"id":"k3","name":"Kestrel K3 APS-C Mirrorless Camera","brand":"Kestrel","cat":"Cameras","price":54990,"mrp":59990,"rating":4.5,"reviews":689,"stock":14,"icon":"camera","tint":"#E7E2D3","featured":1,"desc":"A light 26MP camera that fits in a jacket pocket and still shoots 11 frames a second. A good first step into interchangeable lenses.","specs":{"Sensor":"26MP APS-C CMOS","Burst":"11 fps mechanical","Video":"4K 30p","Weight":"403 g with battery"}},{"id":"v1","name":"Vantage V1 Compact Vlog Camera","brand":"Vantage","cat":"Cameras","price":38490,"mrp":42990,"rating":4.3,"reviews":257,"stock":3,"icon":"camera","tint":"#D9DFE8","desc":"A one-inch sensor, a flip-out screen and a built-in ND filter. Made for creators who shoot, edit and upload the same day.","specs":{"Sensor":"1-inch 20MP","Lens":"24-70mm equiv. f/1.8-2.8","Screen":"3.0 in flip-out touch","Weight":"304 g"}},{"id":"o2470","name":"Orbis 24-70mm f/2.8 Standard Zoom","brand":"Orbis","cat":"Lenses","price":72500,"mrp":79900,"rating":4.8,"reviews":198,"stock":5,"icon":"lens","tint":"#E9DCD6","featured":1,"desc":"The everyday workhorse zoom. Sharp across the frame at f/2.8, with weather sealing and a quiet focus motor for video.","specs":{"Mount":"K full-frame","Aperture":"f/2.8 constant","Elements":"18 in 14 groups","Weight":"886 g"}},{"id":"o50","name":"Orbis 50mm f/1.8 Prime","brand":"Orbis","cat":"Lenses","price":14990,"mrp":16990,"rating":4.6,"reviews":934,"stock":22,"icon":"lens","tint":"#D9E6DA","featured":1,"desc":"Small, light and quick to focus. The classic portrait lens with soft background blur at an easy price.","specs":{"Mount":"K full-frame","Aperture":"f/1.8","Min focus":"0.45 m","Weight":"186 g"}},{"id":"o70200","name":"Orbis 70-200mm f/4 Telephoto Zoom","brand":"Orbis","cat":"Lenses","price":58900,"mrp":63900,"rating":4.7,"reviews":143,"stock":4,"icon":"lens","tint":"#DCE5E2","desc":"Reach for sports, stage and wildlife without the weight of an f/2.8. Optical stabilisation gives sharp shots at slow shutter speeds.","specs":{"Mount":"K full-frame","Aperture":"f/4 constant","Stabilisation":"Up to 5.5 stops","Weight":"780 g"}},{"id":"o16","name":"Orbis 16mm f/1.4 Wide Prime","brand":"Orbis","cat":"Lenses","price":31990,"mrp":34990,"rating":4.4,"reviews":88,"stock":9,"icon":"lens","tint":"#E7E2D3","desc":"A fast wide lens for night skies, interiors and street work. Minimal distortion and good coma control at the corners.","specs":{"Mount":"K APS-C","Aperture":"f/1.4","Angle of view":"83 degrees","Weight":"405 g"}},{"id":"l200","name":"Lumora 200W LED Monolight","brand":"Lumora","cat":"Lighting","price":18990,"mrp":21990,"rating":4.5,"reviews":176,"stock":11,"icon":"light","tint":"#D9DFE8","featured":1,"desc":"Daylight-balanced studio light with a Bowens mount, so every common modifier fits. Quiet fan and app control.","specs":{"Output":"200W, 5600K","CRI":"96+","Mount":"Bowens S-type","Control":"Dial and Bluetooth app"}},{"id":"lsoft","name":"Lumora 90cm Octa Softbox","brand":"Lumora","cat":"Lighting","price":3490,"mrp":4290,"rating":4.4,"reviews":521,"stock":30,"icon":"softbox","tint":"#E9DCD6","desc":"Soft, wrapping light for portraits and products. Folds like an umbrella and sets up in under a minute.","specs":{"Size":"90 cm octagon","Mount":"Bowens","Includes":"Grid, carry bag","Weight":"1.1 kg"}},{"id":"ltube","name":"Lumora RGB Tube Light 60cm","brand":"Lumora","cat":"Lighting","price":7990,"mrp":9490,"rating":4.6,"reviews":302,"stock":18,"icon":"tube","tint":"#D9E6DA","desc":"A handheld tube with full colour control and 40 built-in effects. Works for interviews, music videos and accent lighting.","specs":{"Colour":"RGB plus 2700-8500K","Battery":"Built-in, 2.5 hours","Length":"60 cm","Weight":"480 g"}},{"id":"tcf4","name":"Ferro Carbon Fibre Tripod CF-4","brand":"Ferro","cat":"Tripods & Supports","price":16490,"mrp":18490,"rating":4.7,"reviews":214,"stock":7,"icon":"tripod","tint":"#DCE5E2","featured":1,"desc":"A four-section carbon tripod that folds to 44 cm and carries 12 kg. Stable in wind, light in a backpack.","specs":{"Max height":"162 cm","Folded":"44 cm","Load":"12 kg","Weight":"1.35 kg"}},{"id":"vhead","name":"Ferro Fluid Video Head","brand":"Ferro","cat":"Tripods & Supports","price":9990,"mrp":11490,"rating":4.3,"reviews":97,"stock":8,"icon":"vhead","tint":"#E7E2D3","desc":"Smooth pans and tilts with adjustable drag and a counterbalance. Fits any tripod with a 3/8 inch screw.","specs":{"Payload":"6 kg","Drag":"Fluid, 8 steps","Plate":"Quick release","Weight":"1.2 kg"}},{"id":"gimb","name":"Ferro Pocket Gimbal Stabiliser","brand":"Ferro","cat":"Tripods & Supports","price":12990,"mrp":14990,"rating":4.2,"reviews":143,"stock":2,"icon":"gimbal","tint":"#D9DFE8","desc":"Three-axis stabiliser for compact cameras and phones. Gives smooth walking shots without a rig.","specs":{"Payload":"1.2 kg","Battery":"12 hours","Modes":"Follow, lock, sport","Weight":"540 g"}},{"id":"bpack","name":"Haven 25L Camera Backpack","brand":"Haven","cat":"Bags","price":6490,"mrp":7990,"rating":4.6,"reviews":605,"stock":16,"icon":"bag","tint":"#E9DCD6","desc":"Holds a body, three lenses, a 15-inch laptop and a tripod. Side access, rain cover and a back panel that opens away from the street.","specs":{"Capacity":"25 L","Laptop":"Up to 15 in","Material":"Water-repellent nylon","Weight":"1.4 kg"}},{"id":"sling","name":"Haven Sling Bag 8L","brand":"Haven","cat":"Bags","price":3290,"mrp":3990,"rating":4.4,"reviews":318,"stock":25,"icon":"sling","tint":"#D9E6DA","desc":"Swing it round to grab the camera without taking it off. Fits one body with two lenses and a few small items.","specs":{"Capacity":"8 L","Fits":"Body plus 2 lenses","Material":"Waxed canvas","Weight":"620 g"}},{"id":"sd128","name":"Vantage 128GB V60 SD Card","brand":"Vantage","cat":"Accessories","price":1890,"mrp":2490,"rating":4.7,"reviews":1280,"stock":80,"icon":"card","tint":"#DCE5E2","desc":"Fast enough for 4K video and long bursts. Waterproof, shock-proof and covered by a lifetime warranty.","specs":{"Capacity":"128 GB","Read":"280 MB/s","Write":"150 MB/s","Class":"UHS-II, V60"}},{"id":"chg","name":"Vantage Dual Battery Charger","brand":"Vantage","cat":"Accessories","price":2490,"mrp":2990,"rating":4.3,"reviews":211,"stock":19,"icon":"charger","tint":"#E7E2D3","desc":"Charges two Kestrel batteries at once from USB-C. Comes with a car adapter for long shoots.","specs":{"Slots":"2","Input":"USB-C PD","Fits":"Kestrel K-series","Weight":"140 g"}},{"id":"nd77","name":"Vantage ND Filter Set 77mm","brand":"Vantage","cat":"Accessories","price":3990,"mrp":4990,"rating":4.5,"reviews":164,"stock":13,"icon":"filter","tint":"#D9DFE8","desc":"Three neutral density filters (3, 6 and 10 stops) for long exposures and wide apertures in daylight.","specs":{"Thread":"77 mm","Stops":"3, 6, 10","Coating":"Multi-layer, water-repellent","Includes":"Hard case"}}];
+const FREE_SHIP = 2000, SHIP_FEE = 5;
+const COUPONS = {
+  SHUTTER10:  {label:'10% off, up to ₹5,000', type:'pct',  v:10,  max:5000, min:0},
+  FIRSTFRAME: {label:'₹500 off orders above ₹10,000', type:'flat', v:500, min:10000}
+};
+const STATES = 'Andhra Pradesh,Arunachal Pradesh,Assam,Bihar,Chhattisgarh,Goa,Gujarat,Haryana,Himachal Pradesh,Jharkhand,Karnataka,Kerala,Madhya Pradesh,Maharashtra,Manipur,Meghalaya,Mizoram,Nagaland,Odisha,Punjab,Rajasthan,Sikkim,Tamil Nadu,Telangana,Tripura,Uttar Pradesh,Uttarakhand,West Bengal,Delhi,Jammu and Kashmir,Ladakh,Chandigarh,Puducherry'.split(',');
+
+/* ============ helpers ============ */
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const fmt=n=>'₹'+Math.round(n).toLocaleString('en-IN');
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const load=(k,d)=>{try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}};
+const save=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+const byId=Object.fromEntries(CATALOG.map(p=>[p.id,p]));
+const CATS=['All',...new Set(CATALOG.map(p=>p.cat))];
+const BRANDS=['All',...new Set(CATALOG.map(p=>p.brand))];
+const S={cat:'All',q:'',brand:'All',price:'all',sort:'featured',saved:false,
+  cart:load('sh_cart',{}),wish:load('sh_wish',[]),orders:load('sh_orders',[]),coupon:load('sh_coupon',null),
+  pay:{tab:'upi',upi:'qr'},last:null,step:1};
+Object.keys(S.cart).forEach(id=>{if(!byId[id])delete S.cart[id]});
+const persist=()=>{save('sh_cart',S.cart);save('sh_wish',S.wish);save('sh_orders',S.orders);save('sh_coupon',S.coupon)};
+let toastT; function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),2400)}
+
+/* ============ icons ============ */
+const ICONS={
+camera:'<path d="M18 44h20l6-9h32l6 9h20a6 6 0 0 1 6 6v42a6 6 0 0 1-6 6H18a6 6 0 0 1-6-6V50a6 6 0 0 1 6-6z"/><circle cx="60" cy="70" r="20"/><circle cx="60" cy="70" r="11" fill="var(--accent)"/><circle cx="96" cy="54" r="3"/>',
+lens:'<rect x="22" y="36" width="62" height="48" rx="6"/><path d="M84 42h14a4 4 0 0 1 4 4v28a4 4 0 0 1-4 4H84z"/><rect x="36" y="36" width="14" height="48" fill="var(--accent)"/><path d="M62 36v48"/>',
+light:'<path d="M34 28h52l12 28H22z"/><path d="M60 56v48M40 106h40M60 56L42 106M60 56l18 50"/><rect x="48" y="14" width="24" height="12" fill="var(--accent)"/>',
+softbox:'<polygon points="60,14 93,27 106,60 93,93 60,106 27,93 14,60 27,27"/><path d="M60 14v92M14 60h92M27 27l66 66M93 27L27 93"/><circle cx="60" cy="60" r="10" fill="var(--accent)"/>',
+tube:'<rect x="12" y="52" width="96" height="18" rx="9" transform="rotate(-30 60 61)"/><rect x="22" y="57" width="76" height="8" rx="4" fill="var(--accent)" transform="rotate(-30 60 61)"/><path d="M60 80v26M44 106h32"/>',
+tripod:'<rect x="48" y="14" width="24" height="16" rx="3" fill="var(--accent)"/><path d="M60 30v22M60 52L30 108M60 52v56M60 52l30 56M44 66h32"/>',
+vhead:'<rect x="26" y="46" width="54" height="30" rx="5"/><path d="M80 58l24-20"/><circle cx="106" cy="38" r="6" fill="var(--accent)"/><path d="M53 76v26M36 102h34"/>',
+gimbal:'<rect x="50" y="64" width="20" height="44" rx="8"/><path d="M60 64V46M26 46a34 34 0 0 1 68 0"/><rect x="47" y="30" width="26" height="18" rx="3" fill="var(--accent)"/>',
+bag:'<path d="M34 42a26 26 0 0 1 52 0v54a8 8 0 0 1-8 8H42a8 8 0 0 1-8-8z"/><path d="M34 70h52M48 24a12 12 0 0 1 24 0"/><rect x="48" y="78" width="24" height="16" rx="3" fill="var(--accent)"/>',
+sling:'<path d="M30 52h60l6 44a6 6 0 0 1-6 6H30a6 6 0 0 1-6-6z"/><path d="M40 52L80 14"/><rect x="48" y="68" width="24" height="14" rx="3" fill="var(--accent)"/>',
+card:'<path d="M34 16h40l16 16v72a4 4 0 0 1-4 4H34a4 4 0 0 1-4-4V20a4 4 0 0 1 4-4z"/><path d="M42 24v14M52 24v14M62 24v14" stroke="var(--accent)" stroke-width="5"/><rect x="40" y="62" width="40" height="30" rx="3"/>',
+charger:'<rect x="22" y="44" width="76" height="46" rx="6"/><rect x="32" y="28" width="22" height="16" fill="var(--accent)"/><rect x="66" y="28" width="22" height="16" fill="var(--accent)"/><path d="M44 68h32"/>',
+filter:'<circle cx="60" cy="60" r="42"/><circle cx="60" cy="60" r="28"/><circle cx="60" cy="60" r="14" fill="var(--accent)"/>'
+};
+const art=p=>`<svg viewBox="0 0 120 120" aria-hidden="true">${ICONS[p.icon]}</svg>`;
+const heartSvg='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-4.6-9.3-9A5.3 5.3 0 0 1 12 6.4 5.3 5.3 0 0 1 21.3 12C19 16.4 12 21 12 21z"/></svg>';
+const off=p=>Math.round((1-p.price/p.mrp)*100);
+
+/* ============ pricing (server recomputes this; never trust the browser) ============ */
+function totals(){
+  const lines=Object.entries(S.cart).map(([id,q])=>({p:byId[id],q})).filter(l=>l.p);
+  const sub=lines.reduce((a,l)=>a+l.p.price*l.q,0);
+  const count=lines.reduce((a,l)=>a+l.q,0);
+  const c=COUPONS[S.coupon]; let disc=0;
+  if(c&&sub>=c.min) disc=c.type==='pct'?Math.min(Math.round(sub*c.v/100),c.max):c.v;
+  const after=sub-disc, ship=lines.length&&after<FREE_SHIP?SHIP_FEE:0;
+  return {lines,count,sub,disc,ship,total:after+ship,gst:Math.round(after*18/118),couponOk:!!(c&&sub>=c.min)};
+}
+function paintBadges(){const t=totals();$('#cc').textContent=t.count;$('#wc').textContent=S.wish.length}
+
+/* ============ shop view ============ */
+function visible(){
+  const pr={all:[0,1e9],u5:[0,5000],m20:[5000,20000],m60:[20000,60000],o60:[60000,1e9]}[S.price];
+  let a=CATALOG.filter(p=>(S.cat==='All'||p.cat===S.cat)&&(S.brand==='All'||p.brand===S.brand)&&(!S.saved||S.wish.includes(p.id))
+    &&p.price>=pr[0]&&p.price<pr[1]&&(!S.q||(p.name+' '+p.brand+' '+p.cat).toLowerCase().includes(S.q)));
+  const s=S.sort;
+  if(s==='low')a.sort((x,y)=>x.price-y.price);else if(s==='high')a.sort((x,y)=>y.price-x.price);
+  else if(s==='rating')a.sort((x,y)=>y.rating-x.rating);else if(s==='off')a.sort((x,y)=>off(y)-off(x));
+  else a.sort((x,y)=>(y.featured||0)-(x.featured||0));
+  return a;
+}
+function cardHtml(p){
+  const w=S.wish.includes(p.id);
+  return `<article class="card">
+    <button class="thumb" data-act="open" data-id="${p.id}" aria-label="View ${esc(p.name)}" style="--t:${p.tint}">${art(p)}</button>
+    <span class="tag">${off(p)}% off</span>
+    <button class="heart" data-act="wish" data-id="${p.id}" aria-pressed="${w}" aria-label="${w?'Remove from':'Save to'} saved items">${heartSvg}</button>
+    <div class="cbody">
+      <span class="brand">${p.brand}</span>
+      <button class="name" data-act="open" data-id="${p.id}">${esc(p.name)}</button>
+      <span class="stars"><b>${p.rating}</b> out of 5 from ${p.reviews.toLocaleString('en-IN')} reviews</span>
+      ${p.stock<=5?`<span class="low">Only ${p.stock} left</span>`:''}
+      <div class="price"><strong>${fmt(p.price)}</strong><s>${fmt(p.mrp)}</s></div>
+      <button class="btn accent sm" data-act="add" data-id="${p.id}">Add to cart</button>
+    </div></article>`;
+}
+function viewShop(){
+  $('#main').innerHTML=`
+  <section class="hero"><div class="wrap">
+    <div>
+      <h1>Gear for people who wait for the light.</h1>
+      <p>Cameras, lenses, lighting and support from brands we test ourselves. Free shipping over ₹2,000, 7-day returns and a GST invoice with every order.</p>
+      <div class="cta"><button class="btn accent" data-act="cat" data-v="Cameras">Shop cameras</button><button class="btn ghost" data-act="cat" data-v="Lenses">Shop lenses</button></div>
+    </div>
+    <div class="iris"><button data-act="iris" aria-label="Change aperture"><svg id="iris" viewBox="0 0 200 200"></svg></button><small>Aperture <strong id="fnum">f/2.8</strong><br>Tap to change the f-stop</small></div>
+  </div><div class="film" aria-hidden="true"></div></section>
+  <div class="wrap">
+    <div class="promises"><div><b>Genuine, sealed and under warranty</b>Bought from brand distributors only.</div><div><b>Pay your way</b>UPI, QR code, cards or cash on delivery.</div><div><b>Try it for 7 days</b>Return unused gear for a full refund.</div></div>
+    <div class="filters" id="filters"></div>
+    <div id="grid" class="grid" aria-live="polite"></div>
+  </div>`;
+  paintFilters();paintGrid();startIris();
+}
+function paintFilters(){
+  $('#filters').innerHTML=`<div class="chips" role="group" aria-label="Categories">${CATS.map(c=>`<button class="chip" data-act="cat" data-v="${c}" aria-pressed="${S.cat===c}">${c}</button>`).join('')}</div>
+  <div class="row">
+    <label class="sr" for="fb">Brand</label><select id="fb" class="sel">${BRANDS.map(b=>`<option value="${b}" ${S.brand===b?'selected':''}>${b==='All'?'All brands':b}</option>`).join('')}</select>
+    <label class="sr" for="fp">Price</label><select id="fp" class="sel">${[['all','Any price'],['u5','Under ₹5,000'],['m20','₹5,000 to ₹20,000'],['m60','₹20,000 to ₹60,000'],['o60','Above ₹60,000']].map(([v,l])=>`<option value="${v}" ${S.price===v?'selected':''}>${l}</option>`).join('')}</select>
+    <label class="sr" for="fs">Sort</label><select id="fs" class="sel">${[['featured','Featured'],['low','Price, low to high'],['high','Price, high to low'],['rating','Top rated'],['off','Biggest discount']].map(([v,l])=>`<option value="${v}" ${S.sort===v?'selected':''}>${l}</option>`).join('')}</select>
+    <span class="results" id="rc"></span></div>`;
+}
+function paintGrid(){
+  const a=visible();
+  $('#rc').textContent=a.length+(a.length===1?' product':' products');
+  $('#grid').innerHTML=a.length?a.map(cardHtml).join(''):`<div class="empty" style="grid-column:1/-1"><h3>Nothing matches yet</h3><p>Try a different category or price range.</p><button class="btn" data-act="clear">Clear filters</button></div>`;
+  $('[data-act=saved]').setAttribute('aria-pressed',S.saved);
+}
+
+/* ============ aperture (hero) ============ */
+const STOPS=[1.4,2,2.8,4,5.6,8,11,16]; let stopI=2,irisR=44,irisTarget=44,irisRaf=0;
+function drawIris(r){
+  const el=$('#iris'); if(!el)return; const n=7,cx=100,cy=100,rot=(1-r/70)*0.55;
+  let pts='',lines='';
+  for(let k=0;k<n;k++){const a=k*2*Math.PI/n+rot;const x=cx+r*Math.cos(a),y=cy+r*Math.sin(a);pts+=`${x.toFixed(1)},${y.toFixed(1)} `;
+    const b=a+1.05;lines+=`<line x1="${x.toFixed(1)}" y1="${y.toFixed(1)}" x2="${(cx+88*Math.cos(b)).toFixed(1)}" y2="${(cy+88*Math.sin(b)).toFixed(1)}"/>`}
+  el.innerHTML=`<circle cx="100" cy="100" r="96" fill="var(--ink)"/><circle cx="100" cy="100" r="90" fill="none" stroke="var(--muted)" stroke-width="1.5"/><g stroke="var(--muted)" stroke-width="1.2" opacity=".7">${lines}</g><polygon points="${pts}" fill="var(--accent)"/><polygon points="${pts}" fill="none" stroke="var(--paper)" stroke-width="1.5" opacity=".5"/>`;
+}
+function irisTo(){const f=STOPS[stopI];irisTarget=14+56*Math.pow(1.4/f,0.8);const fn=$('#fnum');if(fn)fn.textContent='f/'+f;
+  cancelAnimationFrame(irisRaf);
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches){irisR=irisTarget;drawIris(irisR);return}
+  const step=()=>{irisR+=(irisTarget-irisR)*.14;drawIris(irisR);if(Math.abs(irisTarget-irisR)>.3)irisRaf=requestAnimationFrame(step)};step()}
+function startIris(){irisR=2;stopI=2;irisTo()}
+
+/* ============ product modal ============ */
+function openProduct(id){
+  const p=byId[id],w=S.wish.includes(id),d=$('#pdlg');
+  d.innerHTML=`<div class="dhead"><span class="brand">${p.brand} · ${p.cat}</span><button class="x" data-act="closeP" aria-label="Close">×</button></div>
+  <div class="pm"><div class="thumb" style="--t:${p.tint}">${art(p)}</div>
+  <div class="pinfo"><h2>${esc(p.name)}</h2>
+    <span class="stars"><b>${p.rating}</b> out of 5 from ${p.reviews.toLocaleString('en-IN')} reviews</span>
+    <div class="price"><span class="big">${fmt(p.price)}</span><s>${fmt(p.mrp)}</s><span class="ok">You save ${fmt(p.mrp-p.price)}</span></div>
+    <span class="muted" style="font-size:.88rem">Inclusive of 18% GST. ${p.stock<=5?`<span class="low">Only ${p.stock} left in stock.</span>`:'In stock.'}</span>
+    <p style="margin:0">${esc(p.desc)}</p>
+    <table class="specs">${Object.entries(p.specs).map(([k,v])=>`<tr><th>${k}</th><td>${esc(v)}</td></tr>`).join('')}</table>
+    <div class="row"><div class="qty" role="group" aria-label="Quantity"><button data-act="pq" data-d="-1" aria-label="Fewer">−</button><span id="pq">1</span><button data-act="pq" data-d="1" aria-label="More">+</button></div>
+      <button class="btn accent" data-act="addq" data-id="${id}">Add to cart</button>
+      <button class="btn" data-act="buy" data-id="${id}">Buy now</button>
+      <button class="btn ghost" data-act="wish" data-id="${id}" aria-pressed="${w}">${w?'Saved':'Save'}</button></div>
+    <div class="row"><label class="sr" for="pin">Pincode</label><input id="pin" class="sel" inputmode="numeric" maxlength="6" placeholder="Check delivery pincode" style="width:200px"><button class="btn ghost sm" data-act="pin">Check</button><span id="pinr" class="muted"></span></div>
+  </div></div>`;
+  d.dataset.id=id; d.dataset.q=1; if(!d.open)d.showModal();
+}
+
+/* ============ cart ============ */
+function cartHtml(){
+  const t=totals();
+  const body=t.lines.length?t.lines.map(({p,q})=>`<div class="line"><div class="thumb" style="--t:${p.tint}">${art(p)}</div>
+    <div><div style="font-weight:600">${esc(p.name)}</div><div class="muted" style="font-size:.9rem">${fmt(p.price)} each</div>
+    <div class="row" style="margin-top:8px;gap:10px"><div class="qty"><button data-act="dec" data-id="${p.id}" aria-label="Fewer">−</button><span>${q}</span><button data-act="inc" data-id="${p.id}" aria-label="More">+</button></div><button class="link" data-act="rm" data-id="${p.id}">Remove</button></div></div>
+    <strong>${fmt(p.price*q)}</strong></div>`).join(''):`<div class="empty"><h3>Your cart is empty</h3><p>Add a camera, a lens or a light to get started.</p><button class="btn" data-act="closeCart">Keep shopping</button></div>`;
+  const left=FREE_SHIP-(t.sub-t.disc);
+  return `<div class="dhead"><h2 style="font-size:1.4rem">Your cart</h2><button class="x" data-act="closeCart" aria-label="Close cart">×</button></div>
+  <div class="list">${body}</div>
+  ${t.lines.length?`<div class="foot">
+    ${left>0?`<p class="muted" style="margin:0 0 10px;font-size:.9rem">Add ${fmt(left)} more for free shipping.</p>`:`<p class="ok" style="margin:0 0 10px;font-size:.9rem">You get free shipping.</p>`}
+    ${couponBox(t)}
+    ${summaryRows(t)}
+    <button class="btn accent" style="width:100%;margin-top:12px" data-act="checkout">Checkout</button></div>`:''}`;
+}
+function couponBox(t){
+  if(S.coupon&&COUPONS[S.coupon])return `<div class="tot"><span class="${t.couponOk?'ok':'bad'}">${S.coupon}: ${t.couponOk?COUPONS[S.coupon].label:'needs '+fmt(COUPONS[S.coupon].min)+' in your cart'}</span><button class="link" data-act="rmcoupon">Remove</button></div>`;
+  return `<div class="row" style="margin-bottom:8px;gap:8px"><label class="sr" for="cpn">Coupon code</label><input id="cpn" class="sel" placeholder="Coupon code" style="flex:1;text-transform:uppercase"><button class="btn ghost sm" data-act="coupon">Apply</button></div>`;
+}
+function summaryRows(t){
+  return `<div class="tot"><span>Subtotal</span><span>${fmt(t.sub)}</span></div>
+  ${t.disc?`<div class="tot ok"><span>Coupon discount</span><span>−${fmt(t.disc)}</span></div>`:''}
+  <div class="tot"><span>Shipping</span><span>${t.ship?fmt(t.ship):'Free'}</span></div>
+  <div class="tot grand"><span>Total</span><span>${fmt(t.total)}</span></div>
+  <div class="muted" style="font-size:.85rem">Includes ${fmt(t.gst)} GST</div>`;
+}
+function paintCart(){$('#cart').innerHTML=cartHtml();paintBadges()}
+function add(id,q=1){const p=byId[id];const cur=S.cart[id]||0;if(cur+q>p.stock){toast('Only '+p.stock+' in stock');S.cart[id]=p.stock}else S.cart[id]=cur+q;persist();paintCart()}
+
+/* ============ checkout ============ */
+function viewCheckout(){
+  const t=totals();
+  if(!t.lines.length){location.hash='#/';return}
+  const live=CONFIG.MODE==='live';
+  $('#main').innerHTML=`<div class="wrap"><h2 class="page">Checkout</h2><div class="co-grid">
+  <div>
+    <section class="panel" id="co-del"><h3>Delivery details</h3>
+      <form id="delform" class="fields" novalidate>
+        <label class="f">Full name<input name="name" autocomplete="name"><span class="err"></span></label>
+        <label class="f">Mobile number<input name="phone" inputmode="numeric" maxlength="10" autocomplete="tel-national" placeholder="10 digits"><span class="err"></span></label>
+        <label class="f full">Email for the invoice<input name="email" type="email" autocomplete="email"><span class="err"></span></label>
+        <label class="f full">Address<input name="addr" autocomplete="street-address" placeholder="House, street, area"><span class="err"></span></label>
+        <label class="f">City<input name="city" autocomplete="address-level2"><span class="err"></span></label>
+        <label class="f">Pincode<input name="pin" inputmode="numeric" maxlength="6" autocomplete="postal-code"><span class="err"></span></label>
+        <label class="f full">State<select name="state" autocomplete="address-level1"><option value="">Choose a state</option>${STATES.map(s=>`<option>${s}</option>`).join('')}</select><span class="err"></span></label>
+        <div class="full"><button class="btn" type="submit" id="to-pay">Continue to payment</button></div>
+      </form></section>
+    <section class="panel" id="co-pay" hidden><h3>Payment</h3>
+      ${live?'':`<p class="note"><b>Demo mode.</b> No money moves. Use test card 4111 1111 1111 1111 with any future expiry and any CVV. Card 4000 0000 0000 0002 simulates a decline.</p>`}
+      <div class="tabs" role="tablist" aria-label="Payment method">
+        <button class="tab" role="tab" data-act="ptab" data-v="upi" aria-selected="true">UPI and QR</button>
+        <button class="tab" role="tab" data-act="ptab" data-v="card" aria-selected="false">${live?'Cards, netbanking, wallets':'Card'}</button>
+        <button class="tab" role="tab" data-act="ptab" data-v="cod" aria-selected="false">Cash on delivery</button>
+      </div>
+      <div id="ppanel"></div>
+      <div id="perr" class="err" role="alert" style="margin:10px 0;font-size:.95rem"></div>
+      <button class="btn accent" id="paybtn" data-act="pay" style="width:100%"></button>
+      <p class="muted" style="font-size:.85rem;margin:10px 0 0">Your card details are sent straight to the payment provider. Shutterhouse never stores them.</p>
+    </section>
+  </div>
+  <aside class="panel" id="co-summary" aria-label="Order summary"></aside></div></div>`;
+  paintSummary();
+}
+function paintSummary(){
+  const t=totals();
+  $('#co-summary').innerHTML=`<h3 style="margin-bottom:10px">Order summary</h3>${t.lines.map(({p,q})=>`<div class="tot"><span>${esc(p.name)} × ${q}</span><span>${fmt(p.price*q)}</span></div>`).join('')}<div style="height:8px"></div>${summaryRows(t)}`;
+  const b=$('#paybtn'); if(b&&!b.dataset.busy)payLabel();
+}
+function payLabel(){
+  const b=$('#paybtn');if(!b)return;const t=totals(),m=S.pay.tab;
+  b.textContent=m==='cod'?`Place order, pay ${fmt(t.total)} on delivery`:m==='upi'&&S.pay.upi==='qr'?`Get Payment QR for ${fmt(t.total)}`:`Pay ${fmt(t.total)}`;
+}
+function paintPay(){
+  const t=totals(),m=S.pay.tab;
+  $$('.tab').forEach(b=>b.setAttribute('aria-selected',b.dataset.v===m));
+  let h='';
+  if(m==='cod')h=`<p style="margin:0">Pay the delivery partner in cash or by UPI when your order arrives. There is no extra cash-on-delivery fee.</p>`;
+  else if(m==='card')h=`<div class="fields">
+      <label class="f full">Card number <span class="cardbrand" id="cbrand"></span><input id="cn" inputmode="numeric" autocomplete="cc-number" placeholder="1234 5678 9012 3456" maxlength="23"></label>
+      <label class="f full">Name on card<input id="cname" autocomplete="cc-name"></label>
+      <label class="f">Expiry (MM/YY)<input id="cexp" inputmode="numeric" autocomplete="cc-exp" placeholder="MM/YY" maxlength="5"></label>
+      <label class="f">CVV<input id="ccvv" type="password" inputmode="numeric" autocomplete="cc-csc" maxlength="4"></label></div>`;
+  else h=`<div class="seg" role="group" aria-label="UPI method"><button data-act="upimode" data-v="qr" aria-pressed="${S.pay.upi==='qr'}">Scan QR code</button><button data-act="upimode" data-v="id" aria-pressed="${S.pay.upi==='id'}">Enter UPI ID</button></div>
+    ${S.pay.upi==='qr'?`<div class="qrbox"><div id="qr" aria-label="UPI QR code"></div><span class="muted" style="font-size:.92rem">Scan with any UPI app to pay ${fmt(t.total)}</span><a class="btn ghost sm" href="${upiLink(t)}">Open UPI app on this phone</a></div>`
+    :`<label class="f" style="margin-top:14px">UPI ID<input id="vpa" autocomplete="off" placeholder="name@bank" autocapitalize="none"></label><p class="muted" style="font-size:.9rem">You will get a payment request in your UPI app. Approve it to finish.</p>`}`;
+  $('#ppanel').innerHTML=h;payLabel();$('#perr').textContent='';
+  if(m==='upi'&&S.pay.upi==='qr')drawQR(t);
+}
+function upiLink(t){return `upi://pay?pa=${encodeURIComponent(CONFIG.UPI_VPA)}&pn=${encodeURIComponent(CONFIG.UPI_NAME)}&am=${t.total}&cu=INR&tn=${encodeURIComponent('Shutterhouse order')}`}
+function drawQR(t){const el=$('#qr');if(!el)return;el.innerHTML='';
+  try{new QRCode(el,{text:upiLink(t),width:160,height:160,correctLevel:QRCode.CorrectLevel.M})}catch(e){el.textContent='QR code unavailable. Use the button below to open your UPI app.'}}
+const luhn=n=>{let s=0,d=false;for(let i=n.length-1;i>=0;i--){let x=+n[i];if(d){x*=2;if(x>9)x-=9}s+=x;d=!d}return n.length>=13&&s%10===0};
+const cardBrand=n=>/^4/.test(n)?'Visa':/^(5[1-5]|2[2-7])/.test(n)?'Mastercard':/^3[47]/.test(n)?'American Express':/^(60|65|81|82|508)/.test(n)?'RuPay':'';
+function validateDelivery(f){
+  const v=n=>f.elements[n].value.trim(),E={};
+  if(v('name').length<2)E.name='Enter your full name';
+  if(!/^[6-9]\d{9}$/.test(v('phone')))E.phone='Enter a 10-digit mobile number';
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v('email')))E.email='Enter a valid email address';
+  if(v('addr').length<6)E.addr='Enter your full address';
+  if(v('city').length<2)E.city='Enter your city';
+  if(!/^[1-9]\d{5}$/.test(v('pin')))E.pin='Enter a 6-digit pincode';
+  if(!v('state'))E.state='Choose your state';
+  ['name','phone','email','addr','city','pin','state'].forEach(n=>{const i=f.elements[n];i.setAttribute('aria-invalid',!!E[n]);i.parentElement.querySelector('.err').textContent=E[n]||''});
+  return Object.keys(E).length?null:Object.fromEntries(['name','phone','email','addr','city','pin','state'].map(n=>[n,v(n)]));
+}
+function loadScript(src){return new Promise((res,rej)=>{if(window.Razorpay)return res();const s=document.createElement('script');s.src=src;s.onload=res;s.onerror=()=>rej(new Error('Could not load the payment window'));document.head.appendChild(s)})}
+async function payLive(t,cust){
+  const items=Object.entries(S.cart).map(([id,qty])=>({id,qty}));
+  const r=await fetch(CONFIG.API_BASE+'/api/orders',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({items,coupon:S.coupon,customer:cust})});
+  if(!r.ok)throw new Error('We could not start your payment. Please try again.');
+  const o=await r.json(); await loadScript('https://checkout.razorpay.com/v1/checkout.js');
+  return new Promise((resolve,reject)=>{
+    const rz=new Razorpay({key:o.keyId,amount:o.amount,currency:o.currency,order_id:o.orderId,name:'Shutterhouse',description:'Camera gear',
+      prefill:{name:cust.name,email:cust.email,contact:cust.phone},theme:{color:'#F2B22A'},
+      handler:async resp=>{try{const v=await fetch(CONFIG.API_BASE+'/api/verify',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(resp)});v.ok?resolve({id:resp.razorpay_payment_id}):reject(new Error('We could not confirm your payment. If money was deducted, it will be refunded.'))}catch(e){reject(e)}},
+      modal:{ondismiss:()=>reject(new Error('Payment window closed. Your cart is saved.'))}});
+    rz.on('payment.failed',e=>reject(new Error(e.error&&e.error.description||'Payment failed. Please try again.')));rz.open();
+  });
+}
+function busy(on,msg){const b=$('#paybtn');if(!b)return;if(on){b.dataset.busy=1;b.disabled=true;b.innerHTML=`<span class="spin"></span> ${esc(msg)}`}else{delete b.dataset.busy;b.disabled=false;payLabel()}}
+async function pay(){
+  const t=totals(),m=S.pay.tab,cust=S.cust,err=$('#perr');err.textContent='';
+  try{
+    let ref;
+    if(m==='cod')ref={id:'COD'};
+    else if(m==='card'){
+      const num=$('#cn').value.replace(/\s/g,''),exp=$('#cexp').value,cvv=$('#ccvv').value,nm=$('#cname').value.trim();
+      const [mm,yy]=exp.split('/').map(Number),now=new Date();
+      if(!luhn(num))throw new Error('Check your card number.');
+      if(nm.length<2)throw new Error('Enter the name on the card.');
+      if(!(mm>=1&&mm<=12)||!yy||new Date(2000+yy,mm,0,23,59)<now)throw new Error('Check the expiry date.');
+      if(!/^\d{3,4}$/.test(cvv))throw new Error('Enter the 3 or 4 digit CVV.');
+      busy(true,'Contacting your bank…');await sleep(1800);
+      if(num.endsWith('0002'))throw new Error('Your bank declined this card. Try another card or pay with UPI.');
+      ref={id:'DEMO-CARD-'+num.slice(-4)};$('#cn').value=$('#ccvv').value='';
+    }else if(m==='upi'&&S.pay.upi==='id'){
+      if(!/^[\w.\-]{2,}@[a-zA-Z]{2,}$/.test($('#vpa').value.trim()))throw new Error('Enter a valid UPI ID like name@bank.');
+      busy(true,'Approve the request in your UPI app…');await sleep(2800);ref={id:'DEMO-UPI-ID'};
+    }else if(m==='upi'&&S.pay.upi==='qr'){
+      // Real UPI QR flow — create backend order then show UTR input
+      const utrEl=$('#utr-input');
+      if(!utrEl){
+        // Step 1: create order on backend
+        busy(true,'Creating order…');
+        const items=Object.entries(S.cart).map(([id,qty])=>({id,qty}));
+        const r=await fetch(CONFIG.API_BASE+'/api/orders',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({items,coupon:S.coupon,customer:cust})});
+        if(!r.ok)throw new Error('Could not create order. Is the server running?');
+        const o=await r.json();
+        S._pendingOrderId=o.orderId;
+        busy(false);
+        // Step 2: show UTR input below the QR
+        const qrBox=$('.qrbox');
+        if(qrBox){
+          qrBox.innerHTML='';
+          const qrDiv=document.createElement('div');qrDiv.id='qr';qrDiv.setAttribute('aria-label','UPI QR code');qrBox.appendChild(qrDiv);
+          try{new QRCode(qrDiv,{text:o.upiUri,width:200,height:200,correctLevel:QRCode.CorrectLevel.M})}catch(e){qrDiv.textContent='Open UPI app and pay to '+CONFIG.UPI_VPA}
+          qrBox.insertAdjacentHTML('beforeend',`<span class="muted" style="font-size:.92rem">Scan with any UPI app · Pay exactly <b>${fmt(o.amount)}</b></span><a class="btn ghost sm" href="${o.upiUri}">Open UPI app on this phone</a><p style="margin:12px 0 4px;font-weight:600">After paying, enter the 12-digit UTR from your UPI app:</p><div class="row" style="gap:8px;width:100%"><input id="utr-input" inputmode="numeric" maxlength="12" placeholder="e.g. 123456789012" style="flex:1;height:44px;border:1.5px solid var(--line);border-radius:8px;padding:0 12px;font-size:1rem"><button class="btn accent" data-act="pay">Confirm Payment</button></div>`);
+        }
+        const pb=$('#paybtn');if(pb){pb.style.display='none'}
+        return;
+      }else{
+        // Step 3: user submitting UTR
+        const utr=utrEl.value.trim();
+        if(!/^\d{12}$/.test(utr))throw new Error('UTR must be exactly 12 digits. Check your UPI app.');
+        busy(true,'Verifying payment…');
+        const v=await fetch(CONFIG.API_BASE+'/api/verify',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({orderId:S._pendingOrderId,utrNumber:utr})});
+        const vj=await v.json();
+        if(!vj.ok)throw new Error(vj.error||'Verification failed. Please try again.');
+        ref={id:'UTR-'+utr};
+      }
+    }
+    finish(m,ref,t,cust);
+  }catch(e){err.textContent=e.message;busy(false)}
+}
+function finish(m,ref,t,cust){
+  const id='SH-'+new Date().toISOString().slice(2,10).replace(/-/g,'')+'-'+Math.random().toString(36).slice(2,6).toUpperCase();
+  const o={id,date:new Date().toISOString(),items:t.lines.map(l=>({id:l.p.id,name:l.p.name,qty:l.q,price:l.p.price})),totals:{sub:t.sub,disc:t.disc,ship:t.ship,total:t.total,gst:t.gst},
+    method:m==='cod'?'Cash on delivery':m==='card'?'Card':'UPI',ref:ref.id,paid:m!=='cod',cust};
+  S.orders.unshift(o);S.cart={};S.coupon=null;S.last=o;persist();paintBadges();location.hash='#/done';
+}
+
+/* ============ order views ============ */
+function orderBlock(o){
+  return `<div class="order"><header><div><b>${o.id}</b><div class="muted" style="font-size:.9rem">${new Date(o.date).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'})}</div></div><span class="pill">${o.paid?'Paid':'Pay on delivery'}</span></header>
+  ${o.items.map(i=>`<div class="tot"><span>${esc(i.name)} × ${i.qty}</span><span>${fmt(i.price*i.qty)}</span></div>`).join('')}
+  <div class="tot grand"><span>Total</span><span>${fmt(o.totals.total)}</span></div>
+  <div class="muted" style="font-size:.88rem">${o.method}${o.ref&&o.ref!=='COD'?' · '+esc(o.ref):''} · Ships to ${esc(o.cust.city)} ${esc(o.cust.pin)}</div></div>`;
+}
+function viewDone(){
+  const o=S.last||S.orders[0];if(!o){location.hash='#/';return}
+  $('#main').innerHTML=`<div class="wrap"><div class="done"><h1>Thank you, ${esc(o.cust.name.split(' ')[0])}. Your order is placed.</h1>
+  <p class="muted">We sent the GST invoice to ${esc(o.cust.email)}. Your gear ships within 24 hours and arrives in 2 to 5 days.</p>${orderBlock(o)}
+  <div class="row no-print"><button class="btn" onclick="window.print()">Print invoice</button><a class="btn ghost" href="#/">Keep shopping</a></div></div></div>`;
+}
+function viewOrders(){
+  $('#main').innerHTML=`<div class="wrap"><h2 class="page">Your orders</h2>${S.orders.length?S.orders.map(orderBlock).join(''):`<div class="empty"><h3>No orders yet</h3><p>Orders you place on this device will show up here.</p><a class="btn" href="#/">Browse gear</a></div>`}</div>`;
+}
+
+/* ============ router ============ */
+function route(){
+  const h=location.hash||'#/';window.scrollTo(0,0);
+  if($('#cart').open)$('#cart').close();
+  if(h==='#/checkout'){S.step=1;viewCheckout()}else if(h==='#/done')viewDone();else if(h==='#/orders')viewOrders();else viewShop();
+  paintBadges();
+}
+addEventListener('hashchange',route);
+
+/* ============ events ============ */
+document.addEventListener('click',e=>{
+  const dlg=e.target;if(dlg.tagName==='DIALOG'){dlg.close();return}
+  const b=e.target.closest('[data-act]');if(!b)return;const a=b.dataset.act,id=b.dataset.id;
+  switch(a){
+    case 'open':openProduct(id);break;
+    case 'closeP':$('#pdlg').close();break;
+    case 'add':add(id);toast('Added to cart');break;
+    case 'addq':{const q=+$('#pdlg').dataset.q;add(id,q);$('#pdlg').close();$('#cart').showModal();break}
+    case 'buy':{const q=+$('#pdlg').dataset.q;add(id,q);$('#pdlg').close();location.hash='#/checkout';break}
+    case 'pq':{const d=$('#pdlg'),p=byId[d.dataset.id];d.dataset.q=Math.max(1,Math.min(p.stock,+d.dataset.q+ +b.dataset.d));$('#pq').textContent=d.dataset.q;break}
+    case 'pin':{const v=$('#pin').value.trim();$('#pinr').textContent=/^[1-9]\d{5}$/.test(v)?'Delivery in 2 to 5 days':'Enter a valid 6-digit pincode';break}
+    case 'wish':{const i=S.wish.indexOf(id);i<0?S.wish.push(id):S.wish.splice(i,1);persist();paintBadges();
+      if($('#grid'))paintGrid();if($('#pdlg').open&&$('#pdlg').dataset.id===id){b.setAttribute('aria-pressed',i<0);if(b.classList.contains('btn'))b.textContent=i<0?'Saved':'Save'}
+      toast(i<0?'Saved for later':'Removed from saved');break}
+    case 'saved':S.saved=!S.saved;if(location.hash&&location.hash!=='#/')location.hash='#/';else if($('#grid'))paintGrid();if(S.saved)toast('Showing saved items');break;
+    case 'cart':paintCart();$('#cart').showModal();break;
+    case 'closeCart':$('#cart').close();break;
+    case 'inc':add(id);break;
+    case 'dec':S.cart[id]>1?S.cart[id]--:delete S.cart[id];persist();paintCart();break;
+    case 'rm':delete S.cart[id];persist();paintCart();break;
+    case 'coupon':{const c=$('#cpn').value.trim().toUpperCase();if(!COUPONS[c]){toast('That code is not valid');break}S.coupon=c;persist();paintCart();if(!totals().couponOk)toast('Add more to use '+c);break}
+    case 'rmcoupon':S.coupon=null;persist();paintCart();if($('#co-summary'))paintSummary();break;
+    case 'checkout':if(location.hash==='#/checkout')$('#cart').close();else location.hash='#/checkout';break;
+    case 'cat':{S.cat=b.dataset.v;if(!$('#grid')){location.hash='#/';if(location.hash==='#/')viewShop();break}paintFilters();paintGrid();if(b.closest('.hero'))$('#filters').scrollIntoView({behavior:'smooth'});break}
+    case 'clear':Object.assign(S,{cat:'All',brand:'All',price:'all',q:'',saved:false,sort:'featured'});$('#q').value='';paintFilters();paintGrid();break;
+    case 'iris':stopI=(stopI+1)%STOPS.length;irisTo();break;
+    case 'ptab':S.pay.tab=b.dataset.v;paintPay();break;
+    case 'upimode':S.pay.upi=b.dataset.v;paintPay();break;
+    case 'pay':pay();break;
+  }
+});
+document.addEventListener('change',e=>{
+  if(e.target.id==='fb')S.brand=e.target.value;else if(e.target.id==='fp')S.price=e.target.value;else if(e.target.id==='fs')S.sort=e.target.value;else return;paintGrid();
+});
+let qT;$('#q').addEventListener('input',e=>{clearTimeout(qT);qT=setTimeout(()=>{S.q=e.target.value.trim().toLowerCase();if(location.hash&&location.hash!=='#/'){location.hash='#/'}else{if(!$('#grid'))viewShop();paintGrid()}},180)});
+document.addEventListener('input',e=>{
+  if(e.target.id==='cn'){const d=e.target.value.replace(/\D/g,'').slice(0,19);e.target.value=d.replace(/(.{4})/g,'$1 ').trim();$('#cbrand').textContent=cardBrand(d)}
+  if(e.target.id==='cexp'){let d=e.target.value.replace(/\D/g,'').slice(0,4);if(d.length>=3)d=d.slice(0,2)+'/'+d.slice(2);e.target.value=d}
+  if(e.target.id==='ccvv')e.target.value=e.target.value.replace(/\D/g,'');
+});
+document.addEventListener('submit',e=>{
+  if(e.target.id==='delform'){e.preventDefault();const c=validateDelivery(e.target);if(!c)return;S.cust=c;
+    $('#co-pay').hidden=false;$('#to-pay').textContent='Update details';paintPay();$('#co-pay').scrollIntoView({behavior:'smooth',block:'start'})}
+});
+document.addEventListener('close',e=>{if(e.target.id==='cart'&&$('#co-summary'))paintSummary()},true);
+route();
+</script>
+</body>
+</html>
